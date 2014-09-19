@@ -6,8 +6,8 @@ Description: This plugin is code syntax highlighter based on <a href="http://ace
 Version: 1.0.0
 Author: yutuo
 Author URI: http://yutuo.net
-Text Domain: wp_switch_util
-Domain Path: /wp_switch_util
+Text Domain: wp_su
+Domain Path: /wp-switch-util
 License: GPL v3 - http://www.gnu.org/licenses/gpl.html
 */
 
@@ -35,8 +35,14 @@ class WPSwitchUtil {
     }
     /** 初始化 */
     function init() {
-        load_plugin_textdomain('wp_ae', false, $this->pluginDir . '/lang');
-        wp_enqueue_script("jquery");
+        load_plugin_textdomain('wp_su', false, $this->pluginDir . '/lang');
+    }
+    /** 应用插件 */
+    function apply() {
+
     }
 
 }
+
+$switchUtil = new WPSwitchUtil();
+$switchUtil->apply();
