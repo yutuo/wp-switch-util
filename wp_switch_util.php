@@ -10,8 +10,25 @@ Text Domain: wp_su
 Domain Path: /wp-switch-util
 License: GPL v3 - http://www.gnu.org/licenses/gpl.html
 */
+class WPSwitchUtilConfig {
+    /** 保存的KEY */
+    const CONFIG_OPTIONS_KEY = 'wp_su_options';
 
-require_once (dirname(__FILE__) . '/inc/wp_switch_util_config.php');
+    /** 默认设置 */
+    static $DEFAULT_OPTION = array (
+            'cacheavatar' => '0',
+            'cacheday' => '15',
+            'mdb5url' => '0',
+            'mdb5length' => '16',   
+            'changeword' => '0',
+            'autosave' => '0',
+            'hirstroy' => '0',
+            'pingback' => '0',
+            'adminbar' => '0',
+			
+    );
+}
+
 class WPSwitchUtil {
     /** 本Plugin文件夹实际目录 */
     var $pluginDir;
@@ -146,6 +163,16 @@ class WPSwitchUtil {
     function disableAutoSave() {
         wp_deregister_script('autosave');
     }
+	/** 阻止站内文章Pingback */
+	function disablePingbackSelf(&$links) {
+	    $home = get_option('home');
+	    foreach ($links as $l => $link) {
+		    if (0 === strpos($link, $home)) {
+			    unset($links[$l]);
+			}
+		}
+	        
+	}
     /** 不显示AdminBar */
     function hideAdminBar() {
         return false;
@@ -180,14 +207,17 @@ class WPSwitchUtil {
         }
         // 禁止自动保存
         if (array_key_exists('autosave', $this->options) && $this->options['autosave'] == '1') {
-            add_action('wp_print_scripts', array ($this, 'disableAutoSave'));
+            define('AUTOSAVE_INTERVAL', 36000000);
+			add_action('wp_print_scripts', array ($this, 'disableAutoSave'));
         }
         // 禁止历史版本
         if (array_key_exists('hirstroy', $this->options) && $this->options['hirstroy'] == '1') {
-            remove_action('pre_post_update', 'wp_save_post_revision');
+            define('WP_POST_REVISIONS', false );
         }
-        // 禁止非注册人查看 unregistered
-
+        // 阻止站内文章Pingback
+		if (array_key_exists('pingback', $this->options) && $this->options['pingback'] == '1') {
+            add_action('pre_ping', array ($this, 'disablePingbackSelf'));   
+        }
         // 不显示AdminBar
         if (array_key_exists('adminbar', $this->options) && $this->options['adminbar'] == '1') {
             add_filter('show_admin_bar', array ($this, 'hideAdminBar'));
@@ -209,9 +239,3 @@ class WPSwitchUtil {
 
 $switchUtil = new WPSwitchUtil();
 $switchUtil->apply();
-
-
-function save_error(){
-    file_put_contents ( 'C:/text.html' , ob_get_contents() );
-}
-add_action('activated_plugin','save_error');

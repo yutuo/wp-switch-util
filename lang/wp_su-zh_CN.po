@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Switch Util\n"
-"POT-Creation-Date: 2014-09-20 16:52+0900\n"
-"PO-Revision-Date: 2014-09-20 16:56+0900\n"
+"POT-Creation-Date: 2014-09-21 23:56+0900\n"
+"PO-Revision-Date: 2014-09-21 23:57+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: inc/wp_switch_util_setting.php:10 wp_switch_util.php:42
+#: inc/wp_switch_util_setting.php:10 wp_switch_util.php:59
 msgid "Wp Switch Util"
 msgstr "Wp Switch Util"
 
@@ -70,13 +70,17 @@ msgid "Disable hirstroy"
 msgstr "禁用历史版本"
 
 #: inc/wp_switch_util_setting.php:61
+msgid "Disable pingback in site"
+msgstr "禁止站内Pingback"
+
+#: inc/wp_switch_util_setting.php:68
 msgid "Don't display the admin bar"
 msgstr "不显示admin bar"
 
-#: inc/wp_switch_util_setting.php:70
+#: inc/wp_switch_util_setting.php:77
 msgid "Save Changes"
 msgstr "保存修改"
 
-#: wp_switch_util.php:50
+#: wp_switch_util.php:67
 msgid "Settings"
 msgstr "设置"

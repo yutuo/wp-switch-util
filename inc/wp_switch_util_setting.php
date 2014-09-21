@@ -57,6 +57,13 @@ if ($_POST[WPSwitchUtilConfig::CONFIG_OPTIONS_KEY]) {
                             <?php echo ($this->options['hirstroy'] == '1') ? 'checked' : '' ?>/>
                     </td>
                 </tr>
+				<tr>
+                    <th scope="row"><?php echo __('Disable pingback in site', 'wp_su') ?></th>
+                    <td>
+                        <input type="checkbox" name="wp_su_options[pingback]" id="wpSuPingback" value="1"
+                            <?php echo ($this->options['pingback'] == '1') ? 'checked' : '' ?>/>
+                    </td>
+                </tr>
                 <tr>
                     <th scope="row"><?php echo __('Don\'t display the admin bar', 'wp_su') ?></th>
                     <td>
