@@ -208,7 +208,7 @@ class WPSwitchUtil {
         // 禁止自动保存
         if (array_key_exists('autosave', $this->options) && $this->options['autosave'] == '1') {
             define('AUTOSAVE_INTERVAL', 36000000);
-			add_action('wp_print_scripts', array ($this, 'disableAutoSave'));
+            add_action('wp_print_scripts', array ($this, 'disableAutoSave'));
         }
         // 禁止历史版本
         if (array_key_exists('hirstroy', $this->options) && $this->options['hirstroy'] == '1') {
