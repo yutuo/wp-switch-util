@@ -131,9 +131,8 @@ class WPSwitchUtil {
                 // 默认图片的URL地址
                 $output_url = $current_path . $dflt_file_name;
             }
-        }   
-        
-        return preg_replace('/(src=[\'\"])([^\'\"]+)([\'\"])/i', '${1}' . $output_url . '${3}', $avatar);
+        }
+        return preg_replace('/(src=[\'\"])([^\'\"]+)([\'\"])/i', '${1}' . $output_url . '?${3}', $avatar);
     }
     /** MDB5的URL */
     function mdb5Url($postname) {
