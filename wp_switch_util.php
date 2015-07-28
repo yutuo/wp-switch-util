@@ -76,63 +76,27 @@ class WPSwitchUtil {
     /** 头像缓存 */
     function cacheAvatar($avatar, $id_or_email, $size, $default) {
         // URL目录地址
-        $current_path = get_option('siteurl') . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/caches/' . $size . '/';    
+        $current_path = get_option('siteurl') . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/caches/';    
         // 保存目录
-        $out_folder = dirname(__FILE__) . '/caches/' . $size . '/'; 
+        $out_folder = dirname(__FILE__) . '/caches/'; 
         if (!file_exists($out_folder)) {
             mkdir($out_folder, 0777, true);
         }
-        $match = array();
-    
-        // 默认图片名取得
-        if (!preg_match('/\/avatar\/(\w+)\?/i', $default, $match)) {
-            $default = "http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=$size&d=monsterid&r=G";
-            $match[1] = 'ad516503a11cd5ca435acc9bb6523536';
-        }
-        
-        $pre_dflt_file_name = $match[1];
-        $dflt_file_name = $pre_dflt_file_name . '.png';
-        $dflt_file_path = $out_folder . $dflt_file_name;
-        
-        if (!file_exists($dflt_file_path)) {
-            $avatarContent = $this->curl_file_get_contents($default);
-            file_put_contents($dflt_file_path, $avatarContent);
-            if (filesize($dflt_file_path) == 0) {
-                unlink($dflt_file_path);
-                return $avatar;
-            }
-        }
-        
-        // 图片URL地址取得
-        if (!preg_match('/src=[\'\"]([^\'\"]+)[\'\"]/i', $avatar, $match)) {
-            return $avatar;
-        }
-        $url = $match[1];
-        $url = str_replace('&amp;', '&', $url);
-        // 图片文件名取得  
-        if (!preg_match('/\/avatar\/(\w+)\?/i', $url, $match)) {
-            return $avatar;
-        }
-        
-        $pre_file_name = $match[1];
-        $file_name = $pre_file_name . '.png';
-        $file_path = $out_folder . $file_name;
-        
-        // 图片的URL地址
-        $output_url = $current_path . $file_name;
-
+        // 保存日数
         $save_day = array_key_exists('cacheday', $this->options) ? $this->options['cacheday'] : '15';
-        $save_time = intval($save_day) * 24 * 60 * 60;
-        if (!file_exists($file_path) || ($save_time > 0 && time() - filemtime($file_path)) > $save_time) {
-            $avatarContent = $this->curl_file_get_contents($url);
-            file_put_contents($file_path, $avatarContent);
-            if (filesize($file_path) == 0) {
-                unlink($file_path);
-                // 默认图片的URL地址
-                $output_url = $current_path . $dflt_file_name;
+
+        $match = array();
+        while (preg_match('/([\'"])(http[s]?:\/\/[\w]+\.gravatar\.com\/avatar\/\w+\?s=\d+[^\'" ]+)( \d+x)?\1/i', $avatar, $match)) {
+            $url = $match[2];
+            $out_file_url = $this->getImageFilesToDisk($url, $out_folder, $save_day);
+            if (strlen($out_file_url) === 0) {
+                return $avatar;
+            } else {
+                $avatar = str_replace($url, $current_path . $out_file_url, $avatar);
             }
         }
-        return preg_replace('/(src=[\'\"])([^\'\"]+)([\'\"])/i', '${1}' . $output_url . '?${3}', $avatar);
+
+        return $avatar;
     }
     /** MDB5的URL */
     function mdb5Url($postname) {
@@ -221,6 +185,52 @@ class WPSwitchUtil {
         if (array_key_exists('adminbar', $this->options) && $this->options['adminbar'] == '1') {
             add_filter('show_admin_bar', array ($this, 'hideAdminBar'));
         }
+    }
+
+    function getImageFilesToDisk($url, $out_folder, $save_day) {
+        $url = str_replace('&amp;', '&', $url);
+        // 图片文件名取得  
+        if (!preg_match('/\/avatar\/(\w+)\?s=(\d+)/i', $url, $match)) {
+            return '';
+        }
+        
+        $pre_file_name = $match[1];
+        $size = $match[2];        
+        $file_name = $pre_file_name . '.png';        
+        $out_folder = $out_folder . $size . '/';
+        if (!file_exists($out_folder)) {
+            mkdir($out_folder, 0777, true);
+        }
+        $file_path = $out_folder . $file_name;
+
+        $save_time = intval($save_day) * 24 * 60 * 60;
+        if (!file_exists($file_path) || ($save_time > 0 && time() - filemtime($file_path)) > $save_time) {
+            $avatarContent = $this->curl_file_get_contents($url);
+            file_put_contents($file_path, $avatarContent);
+            if (filesize($file_path) == 0) {
+                unlink($file_path);
+                return $this->getDftImageFilesToDisk($out_folder, $size);;
+            }
+        }
+
+        return $size . '/' . $file_name;
+    }
+
+    function getDftImageFilesToDisk($out_folder, $size) {
+        $url = "http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=${size}&d=monsterid&r=G";
+        $file_name = 'ad516503a11cd5ca435acc9bb6523536.png';
+        $file_path = $out_folder . $file_name;
+
+        if (!file_exists($file_path)) {
+            $avatarContent = $this->curl_file_get_contents($url);
+            file_put_contents($file_path, $avatarContent);
+            if (filesize($file_path) == 0) {
+                unlink($file_path);
+                return '';
+            }
+        }
+
+        return $size . '/' . $file_name;
     }
 
     function curl_file_get_contents($durl) {
