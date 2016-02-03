@@ -3,7 +3,7 @@
 Plugin Name: WP Switch Util
 Plugin URI: http://yutuo.net/archives/f685d2dbbb176e86.html
 Description: This plugin can: cache the avatar, format you url, disable the histroy, disable auto save, disable admin bar
-Version: 1.0.0
+Version: 0.0.2
 Author: yutuo
 Author URI: http://yutuo.net
 Text Domain: wp_su
@@ -76,9 +76,9 @@ class WPSwitchUtil {
     /** 头像缓存 */
     function cacheAvatar($avatar, $id_or_email, $size, $default) {
         // URL目录地址
-        $current_path = get_option('siteurl') . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/caches/';    
+        $current_path = content_url() . '/cache/avatar/';    
         // 保存目录
-        $out_folder = dirname(__FILE__) . '/caches/'; 
+        $out_folder = WP_CONTENT_DIR . '/cache/avatar/';
         if (!file_exists($out_folder)) {
             mkdir($out_folder, 0777, true);
         }
@@ -190,12 +190,13 @@ class WPSwitchUtil {
     function getImageFilesToDisk($url, $out_folder, $save_day) {
         $url = str_replace('&amp;', '&', $url);
         // 图片文件名取得  
-        if (!preg_match('/\/avatar\/(\w+)\?s=(\d+)/i', $url, $match)) {
+        if (!preg_match('/\/avatar\/(\w+)\?s=(\d+).*?(r=\w)?/i', $url, $match)) {
             return '';
         }
         
         $pre_file_name = $match[1];
-        $size = $match[2];        
+        $size = $match[2];
+        $level = $match[3];
         $file_name = $pre_file_name . '.png';        
         $out_folder = $out_folder . $size . '/';
         if (!file_exists($out_folder)) {
@@ -205,7 +206,8 @@ class WPSwitchUtil {
 
         $save_time = intval($save_day) * 24 * 60 * 60;
         if (!file_exists($file_path) || ($save_time > 0 && time() - filemtime($file_path)) > $save_time) {
-            $avatarContent = $this->curl_file_get_contents($url);
+            $url_get = "http://www.gravatar.com/avatar/{$pre_file_name}?s=${size}&${level}";
+            $avatarContent = $this->curl_file_get_contents($url_get);
             file_put_contents($file_path, $avatarContent);
             if (filesize($file_path) == 0) {
                 unlink($file_path);
