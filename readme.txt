@@ -4,7 +4,7 @@ Donate link: http://yutuo.net/archives/f685d2dbbb176e86.html
 Tags: CacheAvatar FormatUrl DisableHistroy
 Requires at least: 3.0.1
 Tested up to: 4.4
-Stable tag: 0.0.2
+Stable tag: 0.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,6 +21,8 @@ This plugin can:
 * Disable hirstroy
 * Disable pingback in site
 * Disable the admin bar
+
+------------------------
 
 这个插件实现了以下功能：
 
@@ -55,11 +57,20 @@ This plugin can:
 
 == Changelog ==
 
+= 0.0.3 =
+
+* Fixed the bug that can't disable auto save.
+
+--
+
+* 解决自动保存的BUG
+
 = 0.0.2 =
 
 * Upgrade the bug that the plugin can't cache avatar on HTTPS protocol.
 * Change the folder that avatar is cached to `/cache/avatar`.
 
+--
 
 * 解决HTTPS协议下不能缓存头像的问题。
 * 修改缓存头像目录到`/cache/avatar`。
@@ -69,14 +80,6 @@ This plugin can:
 * New.
 
 == Upgrade Notice ==
-
-= 0.0.2 =
-
-* Https can't cache avatar.
-
-= 0.0.1 =
-
-* New.
 
 == Arbitrary section ==
 
