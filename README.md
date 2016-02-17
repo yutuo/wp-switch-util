@@ -30,6 +30,7 @@ This plugin can:
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Use the Settings->Wp Switch Util screen to configure the plugin
 
+--
 
 1. 上传本插件文件到`/wp-content/plugins/wp-switch-util`目录，或者通过Wordpress插件安装画面自动安装。
 2. 在插件管理画面启用本插件。
@@ -38,11 +39,20 @@ This plugin can:
 
 #### Changelog
 
+= 0.0.3 =
+
+* Fixed the bug that can't disable auto save.
+
+--
+
+* 解决自动保存的BUG
+
 = 0.0.2 =
 
 * Upgrade the bug that the plugin can't cache avatar on HTTPS protocol.
 * Change the folder that avatar is cached to `/cache/avatar`.
 
+--
 
 * 解决HTTPS协议下不能缓存头像的问题。
 * 修改缓存头像目录到`/cache/avatar`。
