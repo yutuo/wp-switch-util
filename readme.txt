@@ -22,8 +22,6 @@ This plugin can:
 * Disable pingback in site
 * Disable the admin bar
 
-------------------------
-
 这个插件实现了以下功能：
 
 * 缓存头像
@@ -57,21 +55,20 @@ This plugin can:
 
 == Changelog ==
 
+= 0.1.0 =
+
+* Fixed the bug that can't disable revision.
+* 解决版本更新的问题
+
 = 0.0.3 =
 
 * Fixed the bug that can't disable auto save.
-
---
-
 * 解决自动保存的BUG
 
 = 0.0.2 =
 
 * Upgrade the bug that the plugin can't cache avatar on HTTPS protocol.
 * Change the folder that avatar is cached to `/cache/avatar`.
-
---
-
 * 解决HTTPS协议下不能缓存头像的问题。
 * 修改缓存头像目录到`/cache/avatar`。
 
