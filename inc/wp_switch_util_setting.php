@@ -71,6 +71,13 @@ if ($_POST[WPSwitchUtilConfig::CONFIG_OPTIONS_KEY]) {
                             <?php echo ($this->options['adminbar'] == '1') ? 'checked' : '' ?>/>
                     </td>
                 </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Enable the link manager', 'wp_su') ?></th>
+                    <td>
+                        <input type="checkbox" name="wp_su_options[linkmanager]" id="wpSuLinkManager" value="1"
+                            <?php echo ($this->options['linkmanager'] == '1') ? 'checked' : '' ?>/>
+                    </td>
+                </tr>
             </table>
             <p class="submit">
                 <input name="submit" type="submit" class="button-primary"

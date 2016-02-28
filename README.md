@@ -12,6 +12,7 @@ This plugin can:
 * Disable hirstroy
 * Disable pingback in site
 * Disable the admin bar
+* Enable the link manager
 
 这个插件实现了以下功能：
 
@@ -22,6 +23,7 @@ This plugin can:
 * 禁用历史版本
 * 禁止站内Pingback
 * 不显示admin bar
+* 启用友情链接
 
 
 #### Installation
@@ -40,6 +42,11 @@ This plugin can:
 
 
 #### Changelog
+
+**0.2.0**
+
+* Add feature "Enable the link manager"
+* 添加启用友情链接功能
 
 **0.1.0**
 
