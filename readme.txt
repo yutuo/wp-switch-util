@@ -4,7 +4,7 @@ Donate link: http://yutuo.net/archives/f685d2dbbb176e86.html
 Tags: CacheAvatar FormatUrl DisableHistroy
 Requires at least: 3.0.1
 Tested up to: 4.4
-Stable tag: 0.2.0
+Stable tag: 0.3.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,6 +21,8 @@ This plugin can:
 * Disable hirstroy
 * Disable pingback in site
 * Disable the admin bar
+* Enable the link manager
+* Disable auto p
 
 这个插件实现了以下功能：
 
@@ -31,6 +33,7 @@ This plugin can:
 * 禁用历史版本
 * 禁止站内Pingback
 * 不显示admin bar
+* 启用友情链接
 
 == Installation ==
 
@@ -54,6 +57,11 @@ This plugin can:
 
 
 == Changelog ==
+
+= 0.3.0 =
+
+* Add feature "Disable auto p"
+* 添加禁用自动添加<p>标签的功能
 
 = 0.2.0 =
 

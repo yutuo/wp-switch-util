@@ -78,6 +78,20 @@ if ($_POST[WPSwitchUtilConfig::CONFIG_OPTIONS_KEY]) {
                             <?php echo ($this->options['linkmanager'] == '1') ? 'checked' : '' ?>/>
                     </td>
                 </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Disable auto p at content', 'wp_su') ?></th>
+                    <td>
+                        <input type="checkbox" name="wp_su_options[autopcontent]" id="wpAutoPContent" value="1"
+                            <?php echo ($this->options['autopcontent'] == '1') ? 'checked' : '' ?>/>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Disable auto p at comment', 'wp_su') ?></th>
+                    <td>
+                        <input type="checkbox" name="wp_su_options[autopcomment]" id="wpAutoPComment" value="1"
+                            <?php echo ($this->options['autopcomment'] == '1') ? 'checked' : '' ?>/>
+                    </td>
+                </tr>
             </table>
             <p class="submit">
                 <input name="submit" type="submit" class="button-primary"

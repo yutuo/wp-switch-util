@@ -14,6 +14,7 @@ This plugin can:
 * Disable the admin bar
 * Enable the link manager
 
+
 这个插件实现了以下功能：
 
 * 缓存头像
@@ -24,7 +25,7 @@ This plugin can:
 * 禁止站内Pingback
 * 不显示admin bar
 * 启用友情链接
-
+* 禁用自动添加<p>标签
 
 #### Installation
 
@@ -42,6 +43,11 @@ This plugin can:
 
 
 #### Changelog
+
+**0.3.0**
+
+* Add feature "Disable auto p"
+* 添加禁用自动添加<p>标签的功能
 
 **0.2.0**
 
