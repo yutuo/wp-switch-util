@@ -4,7 +4,7 @@
  * Plugin Name: WP Switch Util
  * Plugin URI: http://yutuo.net/archives/f685d2dbbb176e86.html
  * Description: This plugin can: cache the avatar, format you url, disable the histroy, disable auto save, disable admin bar
- * Version: 0.2.0
+ * Version: 0.3.0
  * Author: yutuo
  * Author URI: http://yutuo.net
  * Text Domain: wp_su
@@ -28,6 +28,8 @@ class WPSwitchUtilConfig
         'pingback' => '0',
         'adminbar' => '0',
         'linkmanager' => '0',
+        'autopcontent' => '0',
+        'autopcomment' => '0',
     );
 }
 
@@ -63,7 +65,7 @@ class WPSwitchUtil
     /** 初始化 */
     function init()
     {
-        load_plugin_textdomain('wp_su', false, $this->pluginDir . '/lang');
+        load_plugin_textdomain('wp_su', false, plugin_basename(dirname(__FILE__)) . '/lang');
     }
 
     /** 在设置菜单添加链接 */
@@ -218,6 +220,14 @@ class WPSwitchUtil
         // 启用友情链接
         if (array_key_exists('linkmanager', $this->options) && $this->options['linkmanager'] == '1') {
             add_filter('pre_option_link_manager_enabled', '__return_true');
+        }
+        // 禁用文章自动添加<p>
+        if (array_key_exists('autopcontent', $this->options) && $this->options['autopcontent'] == '1') {
+            remove_filter('the_content', 'wpautop');
+        }
+        // 禁用评论自动添加<p>
+        if (array_key_exists('autopcomment', $this->options) && $this->options['autopcomment'] == '1') {
+            remove_filter('comment_text', 'wpautop');
         }
     }
 
