@@ -44,6 +44,11 @@ This plugin can:
 
 #### Changelog
 
+**0.3.1**
+
+* Fixed a bug that can't cache avatars
+* 修改了一个不能缓存头像的BUG
+
 **0.3.0**
 
 * Add feature "Disable auto p"

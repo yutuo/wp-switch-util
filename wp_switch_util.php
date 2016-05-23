@@ -4,7 +4,7 @@
  * Plugin Name: WP Switch Util
  * Plugin URI: http://yutuo.net/archives/f685d2dbbb176e86.html
  * Description: This plugin can: cache the avatar, format you url, disable the histroy, disable auto save, disable admin bar
- * Version: 0.3.0
+ * Version: 0.3.1
  * Author: yutuo
  * Author URI: http://yutuo.net
  * Text Domain: wp_su
@@ -107,7 +107,7 @@ class WPSwitchUtil
         $save_day = array_key_exists('cacheday', $this->options) ? $this->options['cacheday'] : '15';
 
         $match = array();
-        while (preg_match('/([\'"])(http[s]?:\/\/[\w]+\.gravatar\.com\/avatar\/\w+\?s=\d+[^\'" ]+)( \d+x)?\1/i', $avatar, $match)) {
+        while (preg_match('/([\'"])(http[s]?:\/\/[\w]+\.gravatar\.com\/avatar\/\w*\?s=\d+[^\'" ]+)( \d+x)?\1/i', $avatar, $match)) {
             $url = $match[2];
             $out_file_url = $this->getImageFilesToDisk($url, $out_folder, $save_day);
             if (strlen($out_file_url) === 0) {
@@ -234,19 +234,24 @@ class WPSwitchUtil
     function getImageFilesToDisk($url, $out_folder, $save_day)
     {
         $url = str_replace('&amp;', '&', $url);
-        // 图片文件名取得  
-        if (!preg_match('/\/avatar\/(\w+)\?s=(\d+).*?(r=\w)?/i', $url, $match)) {
+        // 图片文件名取得
+        if (!preg_match('/\/avatar\/(\w*)\?s=(\d+).*?(r=\w)?/i', $url, $match)) {
             return '';
         }
 
         $pre_file_name = $match[1];
         $size = $match[2];
-        $level = $match[3];
-        $file_name = $pre_file_name . '.png';
+        $level = count($match) >= 3 ? $match[3] : 'r=g';
         $out_folder = $out_folder . $size . '/';
         if (!file_exists($out_folder)) {
             mkdir($out_folder, 0777, true);
         }
+
+        if (strlen($pre_file_name) === 0) {
+            return $this->getDftImageFilesToDisk($out_folder, $size);
+        }
+
+        $file_name = $pre_file_name . '.png';
         $file_path = $out_folder . $file_name;
 
         $save_time = intval($save_day) * 24 * 60 * 60;
@@ -265,7 +270,7 @@ class WPSwitchUtil
 
     function getDftImageFilesToDisk($out_folder, $size)
     {
-        $url = "http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=${size}&d=monsterid&r=G";
+        $url = "http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=${size}&r=g";
         $file_name = 'ad516503a11cd5ca435acc9bb6523536.png';
         $file_path = $out_folder . $file_name;
 
