@@ -100,6 +100,13 @@ if (isset($_POST) && array_key_exists(WPSwitchUtilConfig::CONFIG_OPTIONS_KEY, $_
                             <?php echo ($this->getOption('autopcomment') == '1') ? 'checked' : '' ?>/>
                     </td>
                 </tr>
+				<tr>
+                    <th scope="row"><?php echo __('Registered user only', 'wp_su') ?></th>
+                    <td>
+                        <input type="checkbox" name="wp_su_options[reguseronly]" id="wpRegUserOnly" value="1"
+                            <?php echo ($this->getOption('reguseronly') == '1') ? 'checked' : '' ?>/>
+                    </td>
+                </tr>
             </table>
             <p class="submit">
                 <input name="submit" type="submit" class="button-primary"

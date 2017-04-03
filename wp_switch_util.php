@@ -4,7 +4,7 @@
  * Plugin Name: WP Switch Util
  * Plugin URI: http://yutuo.net/archives/f685d2dbbb176e86.html
  * Description: This plugin can: cache the avatar, format you url, disable the histroy, disable auto save, disable admin bar
- * Version: 0.3.1
+ * Version: 1.1.0
  * Author: yutuo
  * Author URI: http://yutuo.net
  * Text Domain: wp_su
@@ -32,6 +32,7 @@ class WPSwitchUtilConfig
         'linkmanager' => '0',
         'autopcontent' => '0',
         'autopcomment' => '0',
+		'reguseronly' => '0',
     );
 }
 
@@ -190,7 +191,28 @@ class WPSwitchUtil
     {
         return false;
     }
+	
+	/** 仅注册用户可以访问 */
+	function regUserOnly() {
+		if ( current_user_can( 'read' ) ) {
+			return;
+		}
 
+		$this->exclusions = array(
+			'wp-login.php',
+			'wp-register.php',
+			'wp-trackback.php',
+			'wp-app.php',
+			'xmlrpc.php',
+		);
+
+		if (in_array(basename( $_SERVER['PHP_SELF'] ), $this->exclusions)) {
+			return;
+		}
+
+		auth_redirect();
+	}
+	
     /** 应用插件 */
     function apply()
     {
@@ -209,44 +231,48 @@ class WPSwitchUtil
             return;
         }
         // 头像缓存
-        if (array_key_exists('cacheavatar', $this->options) && $this->options['cacheavatar'] == '1') {
+		if ($this->getOption('cacheavatar') == '1') {
             add_filter('get_avatar', array($this, 'cacheAvatar'), 10, 4);
         }
         // MDB5的URL
-        if (array_key_exists('mdb5url', $this->options) && $this->options['mdb5url'] == '1') {
+		if ($this->getOption('mdb5url') == '1') {
             add_filter('name_save_pre', array($this, 'mdb5Url'));
         }
         // 不转换半角到全角
-        if (array_key_exists('changeword', $this->options) && $this->options['changeword'] == '1') {
+		if ($this->getOption('changeword') == '1') {
             $this->changeWord();
         }
         // 禁止自动保存
-        if (array_key_exists('autosave', $this->options) && $this->options['autosave'] == '1') {
+		if ($this->getOption('autosave') == '1') {
             add_action('wp_print_scripts', array($this, 'disableAutoSave'));
         }
         // 禁止历史版本
-        if (array_key_exists('hirstroy', $this->options) && $this->options['hirstroy'] == '1') {
+		if ($this->getOption('hirstroy') == '1') {
             remove_action('post_updated', 'wp_save_post_revision');
         }
         // 阻止站内文章Pingback
-        if (array_key_exists('pingback', $this->options) && $this->options['pingback'] == '1') {
+		if ($this->getOption('pingback') == '1') {
             add_action('pre_ping', array($this, 'disablePingbackSelf'));
         }
         // 不显示AdminBar
-        if (array_key_exists('adminbar', $this->options) && $this->options['adminbar'] == '1') {
+		if ($this->getOption('adminbar') == '1') {
             add_filter('show_admin_bar', array($this, 'hideAdminBar'));
         }
         // 启用友情链接
-        if (array_key_exists('linkmanager', $this->options) && $this->options['linkmanager'] == '1') {
+		if ($this->getOption('linkmanager') == '1') {
             add_filter('pre_option_link_manager_enabled', '__return_true');
         }
-        // 禁用文章自动添加<p>
-        if (array_key_exists('autopcontent', $this->options) && $this->options['autopcontent'] == '1') {
+        // 禁用文章自动添加
+		if ($this->getOption('autopcontent') == '1') {
             remove_filter('the_content', 'wpautop');
         }
-        // 禁用评论自动添加<p>
-        if (array_key_exists('autopcomment', $this->options) && $this->options['autopcomment'] == '1') {
+        // 禁用评论自动添加
+		if ($this->getOption('autopcomment') == '1') {
             remove_filter('comment_text', 'wpautop');
+        }
+		// 仅注册用户可以访问
+        if ($this->getOption('reguseronly') == '1') {
+			add_action('wp', array($this, 'regUserOnly'));
         }
     }
 
