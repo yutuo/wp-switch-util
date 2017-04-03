@@ -22,6 +22,8 @@ class WPSwitchUtilConfig
         'cacheday' => '15',
         'mdb5url' => '0',
         'mdb5length' => '16',
+		'mdb5typepost' => '1',
+		'mdb5typepage' => '0',
         'changeword' => '0',
         'autosave' => '0',
         'hirstroy' => '0',
@@ -43,12 +45,21 @@ class WPSwitchUtil
     var $options;
 
     /** 构造函数 */
-    function WPSwitchUtil()
+    function __construct()
     {
         $this->pluginDir = dirname(plugin_basename(__FILE__));
         $this->currentUrl = get_option('siteurl') . '/wp-content/plugins/' . basename(dirname(__FILE__));
         $this->options = get_option(WPSwitchUtilConfig::CONFIG_OPTIONS_KEY);
     }
+	
+	/** 读取设置值，没有设置值时，读取初始值 */
+	function getOption($key) {
+		if (array_key_exists($key, $this->options)) {
+			return $this->options[$key];
+		} else {
+			return WPSwitchUtilConfig::$DEFAULT_OPTION[$key];
+		}
+	}
 
     /** 启用 */
     function activate()
@@ -61,6 +72,7 @@ class WPSwitchUtil
     {
         delete_option(WPSwitchUtilConfig::CONFIG_OPTIONS_KEY);
     }
+
 
     /** 初始化 */
     function init()
@@ -124,13 +136,20 @@ class WPSwitchUtil
     function mdb5Url($postname)
     {
         $post_title = $_POST['post_title'];
-        $str = mb_convert_encoding($post_title, 'UTF-8');
-        $md5_str = md5($str);
+		$post_type = $_POST['post_type'];
+		$setting_key = 'mdb5type' . $post_type;
+		
+		if (array_key_exists($setting_key, $this->options) && $this->options[$setting_key] == '1') {
+			$str = mb_convert_encoding($post_title, 'UTF-8');
+			$md5_str = md5($str);
 
-        $length = array_key_exists('mdb5length', $this->options) ? intval($this->options['mdb5length']) : 16;
+			$length = array_key_exists('mdb5length', $this->options) ? intval($this->options['mdb5length']) : 16;
 
-        $md5_str = substr($md5_str, intval((32 - $length) / 2), $length);
-        return $md5_str;
+			$md5_str = substr($md5_str, intval((32 - $length) / 2), $length);
+			return $md5_str;
+		} else {
+			return $postname;
+		}
     }
 
     /** 不转换半角到全角 */
