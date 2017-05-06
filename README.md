@@ -26,7 +26,7 @@ This plugin can:
 * 禁止站内Pingback
 * 不显示admin bar
 * 启用友情链接
-* 禁用自动添加<p>标签
+* 禁用自动添加&lt;p>标签
 * 仅登陆用户可访问
 
 #### Installation
