@@ -34,6 +34,25 @@ class WPSwitchUtilConfig
         'autopcomment' => '0',
 		'reguseronly' => '0',
     );
+	
+	/** 注册用户页面 */
+    static $REG_USER_ONLY_PAGES = array(
+        'cacheavatar' => '0',
+        'cacheday' => '15',
+        'mdb5url' => '0',
+        'mdb5length' => '16',
+		'mdb5typepost' => '1',
+		'mdb5typepage' => '0',
+        'changeword' => '0',
+        'autosave' => '0',
+        'hirstroy' => '0',
+        'pingback' => '0',
+        'adminbar' => '0',
+        'linkmanager' => '0',
+        'autopcontent' => '0',
+        'autopcomment' => '0',
+		'reguseronly' => '0',
+    );
 }
 
 class WPSwitchUtil
@@ -194,23 +213,28 @@ class WPSwitchUtil
 	
 	/** 仅注册用户可以访问 */
 	function regUserOnly() {
-		if ( current_user_can( 'read' ) ) {
+		if (current_user_can('read')) {
 			return;
 		}
 
-		$this->exclusions = array(
-			'wp-login.php',
-			'wp-register.php',
-			'wp-trackback.php',
-			'wp-app.php',
-			'xmlrpc.php',
-		);
-
-		if (in_array(basename( $_SERVER['PHP_SELF'] ), $this->exclusions)) {
+		if (in_array(basename($_SERVER['PHP_SELF']), WPSwitchUtilConfig::$REG_USER_ONLY_PAGES)) {
 			return;
 		}
 
 		auth_redirect();
+	}
+	
+	public function loginFormMessage() {
+		if ('wp-login.php' != basename($_SERVER['PHP_SELF']) || !empty($_POST) || (!empty($_GET) && empty($_GET['redirect_to']))) {
+			return;
+		}
+
+		$redirectTo = $_GET['redirect_to'];
+		if (strpos($redirectTo, get_admin_url()) === 0) {
+			return;
+		}
+        global $error;
+        $error = __('Only registered and logged in users are allowed to view this site. Please log in now.', 'wp_su');
 	}
 	
     /** 应用插件 */
@@ -273,6 +297,7 @@ class WPSwitchUtil
 		// 仅注册用户可以访问
         if ($this->getOption('reguseronly') == '1') {
 			add_action('wp', array($this, 'regUserOnly'));
+            add_action('init', array($this, 'loginFormMessage'));
         }
     }
 
