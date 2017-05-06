@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Switch Util\n"
-"POT-Creation-Date: 2016-03-06 18:11+0900\n"
-"PO-Revision-Date: 2016-03-06 18:38+0900\n"
+"POT-Creation-Date: 2017-05-07 00:21+0900\n"
+"PO-Revision-Date: 2017-05-07 00:22+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 2.0.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: wp_switch_util.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: inc/wp_switch_util_setting.php:10 wp_switch_util.php:72
+#: inc/wp_switch_util_setting.php:10 wp_switch_util.php:106
 msgid "Wp Switch Util"
 msgstr ""
 
@@ -60,45 +60,67 @@ msgstr "Url使用MDB5"
 msgid "Length:"
 msgstr "长度："
 
-#: inc/wp_switch_util_setting.php:40
+#: inc/wp_switch_util_setting.php:38
+msgid "MDB5 Type"
+msgstr "要转换的类型"
+
+#: inc/wp_switch_util_setting.php:41
+msgid "Post"
+msgstr "文章"
+
+#: inc/wp_switch_util_setting.php:44
+msgid "Page"
+msgstr "页面"
+
+#: inc/wp_switch_util_setting.php:48
 msgid "Disable Change The Word"
 msgstr "不转换半角到全角"
 
-#: inc/wp_switch_util_setting.php:47
+#: inc/wp_switch_util_setting.php:55
 msgid "Disable Auto Save"
 msgstr "禁用自动保存"
 
-#: inc/wp_switch_util_setting.php:54
+#: inc/wp_switch_util_setting.php:62
 msgid "Disable hirstroy"
 msgstr "禁用历史版本"
 
-#: inc/wp_switch_util_setting.php:61
+#: inc/wp_switch_util_setting.php:69
 msgid "Disable pingback in site"
 msgstr "禁止站内Pingback"
 
-#: inc/wp_switch_util_setting.php:68
+#: inc/wp_switch_util_setting.php:76
 msgid "Don't display the admin bar"
 msgstr "不显示admin bar"
 
-#: inc/wp_switch_util_setting.php:75
+#: inc/wp_switch_util_setting.php:83
 msgid "Enable the link manager"
 msgstr "启用友情链接"
 
-#: inc/wp_switch_util_setting.php:82
+#: inc/wp_switch_util_setting.php:90
 msgid "Disable auto p at content"
 msgstr "禁用文章自动添加&lt;p&gt;标签"
 
-#: inc/wp_switch_util_setting.php:89
+#: inc/wp_switch_util_setting.php:97
 msgid "Disable auto p at comment"
 msgstr "禁用评论自动添加&lt;p&gt;标签"
 
-#: inc/wp_switch_util_setting.php:98
+#: inc/wp_switch_util_setting.php:104
+msgid "Registered user only"
+msgstr "仅注册用户可以访问"
+
+#: inc/wp_switch_util_setting.php:113
 msgid "Save Changes"
 msgstr "保存修改"
 
-#: wp_switch_util.php:82
+#: wp_switch_util.php:116
 msgid "Settings"
 msgstr "设置"
+
+#: wp_switch_util.php:237
+msgid ""
+"Only registered and logged in users are allowed to view this site. Please "
+"log in now."
+msgstr "仅注册并登陆后的用户可以访问本站，请登陆。"
 
 #. Plugin Name of the plugin/theme
 msgid "WP Switch Util"

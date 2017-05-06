@@ -23,6 +23,7 @@ This plugin can:
 * Disable the admin bar
 * Enable the link manager
 * Disable auto p
+* Only registered user access
 
 这个插件实现了以下功能：
 
@@ -34,6 +35,8 @@ This plugin can:
 * 禁止站内Pingback
 * 不显示admin bar
 * 启用友情链接
+* 禁用自动添加<p>标签
+* 仅登陆用户可访问
 
 == Installation ==
 
@@ -57,6 +60,11 @@ This plugin can:
 
 
 == Changelog ==
+
+= 1.1.0 =
+
+* Add feature "Only registered user access"
+* 添加仅登陆用户可访问功能
 
 = 0.3.1 =
 
