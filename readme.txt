@@ -35,7 +35,7 @@ This plugin can:
 * 禁止站内Pingback
 * 不显示admin bar
 * 启用友情链接
-* 禁用自动添加<p>标签
+* 禁用自动添加&lt;p&gt;标签
 * 仅登陆用户可访问
 
 == Installation ==
@@ -60,6 +60,11 @@ This plugin can:
 
 
 == Changelog ==
+
+= 1.1.1 =
+
+* Change setting page display
+* 更新设置画面显示
 
 = 1.1.0 =
 

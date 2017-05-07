@@ -87,17 +87,14 @@ if (isset($_POST) && array_key_exists(WPSwitchUtilConfig::CONFIG_OPTIONS_KEY, $_
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php echo __('Disable auto p at content', 'wp_su') ?></th>
+                    <th scope="row"><?php echo __('Disable auto p', 'wp_su') ?></th>
                     <td>
                         <input type="checkbox" name="wp_su_options[autopcontent]" id="wpAutoPContent" value="1"
                             <?php echo ($this->getOption('autopcontent') == '1') ? 'checked' : '' ?>/>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php echo __('Disable auto p at comment', 'wp_su') ?></th>
-                    <td>
+						<label for="wpAutoPContent"><?php echo __('Content', 'wp_su') ?></label>
                         <input type="checkbox" name="wp_su_options[autopcomment]" id="wpAutoPComment" value="1"
                             <?php echo ($this->getOption('autopcomment') == '1') ? 'checked' : '' ?>/>
+						<label for="wpAutoPComment"><?php echo __('Comment', 'wp_su') ?></label>
                     </td>
                 </tr>
 				<tr>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Switch Util\n"
-"POT-Creation-Date: 2017-05-07 00:21+0900\n"
-"PO-Revision-Date: 2017-05-07 00:22+0900\n"
+"POT-Creation-Date: 2017-05-07 22:56+0900\n"
+"PO-Revision-Date: 2017-05-07 22:59+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -97,18 +97,22 @@ msgid "Enable the link manager"
 msgstr "启用友情链接"
 
 #: inc/wp_switch_util_setting.php:90
-msgid "Disable auto p at content"
-msgstr "禁用文章自动添加&lt;p&gt;标签"
+msgid "Disable auto p"
+msgstr "禁用自动添加&lt;p&gt;标签"
+
+#: inc/wp_switch_util_setting.php:94
+msgid "Content"
+msgstr "文章"
 
 #: inc/wp_switch_util_setting.php:97
-msgid "Disable auto p at comment"
-msgstr "禁用评论自动添加&lt;p&gt;标签"
+msgid "Comment"
+msgstr "评论"
 
-#: inc/wp_switch_util_setting.php:104
+#: inc/wp_switch_util_setting.php:101
 msgid "Registered user only"
 msgstr "仅注册用户可以访问"
 
-#: inc/wp_switch_util_setting.php:113
+#: inc/wp_switch_util_setting.php:110
 msgid "Save Changes"
 msgstr "保存修改"
 
@@ -137,3 +141,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://yutuo.net"
 msgstr ""
+
+#~ msgid "Disable auto p at content"
+#~ msgstr "禁用文章自动添加&lt;p&gt;标签"
+
+#~ msgid "Disable auto p at comment"
+#~ msgstr "禁用评论自动添加&lt;p&gt;标签"
