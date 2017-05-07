@@ -46,6 +46,11 @@ This plugin can:
 
 #### Changelog
 
+**1.1.1**
+
+* Change setting page display
+* 更新设置画面显示
+
 **1.1.0**
 
 * Add feature "Only registered user access"
