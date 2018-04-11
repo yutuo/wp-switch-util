@@ -24,6 +24,7 @@ This plugin can:
 * Enable the link manager
 * Disable auto p
 * Only registered user access
+* Disable emoji
 
 这个插件实现了以下功能：
 
@@ -37,6 +38,7 @@ This plugin can:
 * 启用友情链接
 * 禁用自动添加&lt;p&gt;标签
 * 仅登陆用户可访问
+* 禁用表情图标
 
 == Installation ==
 
