@@ -46,6 +46,11 @@ This plugin can:
 
 #### Changelog
 
+**1.1.2**
+
+* Fixed a bug in "Only registered user access"
+* 修改添加仅登陆用户可访问功能Bug
+
 **1.1.1**
 
 * Change setting page display
