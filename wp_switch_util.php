@@ -4,7 +4,7 @@
  * Plugin Name: WP Switch Util
  * Plugin URI: http://yutuo.net/archives/f685d2dbbb176e86.html
  * Description: This plugin can: cache the avatar, format you url, disable the histroy, disable auto save, disable admin bar
- * Version: 1.1.2
+ * Version: 1.2.0
  * Author: yutuo
  * Author URI: http://yutuo.net
  * Text Domain: wp_su
