@@ -61,6 +61,11 @@ This plugin can:
 
 == Changelog ==
 
+= 1.2.0 =
+
+* Add feature "disable emoji"
+* 添加禁用表情图标功能
+
 = 1.1.2 =
 
 * Fixed a bug in "Only registered user access"

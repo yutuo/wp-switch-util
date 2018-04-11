@@ -107,7 +107,11 @@ msgstr ""
 msgid "Registered user only"
 msgstr ""
 
-#: inc/wp_switch_util_setting.php:113
+#: inc/wp_switch_util_setting.php:108
+msgid "Disable emoji"
+msgstr ""
+
+#: inc/wp_switch_util_setting.php:117
 msgid "Save Changes"
 msgstr ""
 

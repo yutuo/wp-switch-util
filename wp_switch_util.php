@@ -4,7 +4,7 @@
  * Plugin Name: WP Switch Util
  * Plugin URI: http://yutuo.net/archives/f685d2dbbb176e86.html
  * Description: This plugin can: cache the avatar, format you url, disable the histroy, disable auto save, disable admin bar
- * Version: 1.1.2
+ * Version: 1.2.0
  * Author: yutuo
  * Author URI: http://yutuo.net
  * Text Domain: wp_su
@@ -33,6 +33,7 @@ class WPSwitchUtilConfig
         'autopcontent' => '0',
         'autopcomment' => '0',
 		'reguseronly' => '0',
+        'disableemoji' => '0',
     );
 	
 	/** 注册用户页面 */
@@ -223,7 +224,25 @@ class WPSwitchUtil
         global $error;
         $error = __('Only registered and logged in users are allowed to view this site. Please log in now.', 'wp_su');
 	}
-	
+
+    /** 删除表情 */
+    function disableEmojis() {
+        remove_action('wp_head', 'print_emoji_detection_script', 7);
+        remove_action('admin_print_scripts', 'print_emoji_detection_script');
+        remove_action('wp_print_styles', 'print_emoji_styles');
+        remove_action('admin_print_styles', 'print_emoji_styles');
+        remove_filter('the_content_feed', 'wp_staticize_emoji');
+        remove_filter('comment_text_rss', 'wp_staticize_emoji');
+        remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+        add_filter('tiny_mce_plugins', 'disable_emojis_tinymce');
+    }
+    function disable_emojis_tinymce( $plugins ) {
+        if (is_array( $plugins )) {
+            return array_diff($plugins, array('wpemoji'));
+        } else {
+            return array();
+        }
+    }
     /** 应用插件 */
     function apply()
     {
@@ -285,6 +304,10 @@ class WPSwitchUtil
         if ($this->getOption('reguseronly') == '1') {
 			add_action('wp', array($this, 'regUserOnly'));
             add_action('init', array($this, 'loginFormMessage'));
+        }
+        // 删除表情
+        if ($this->getOption('disableemoji') == '1') {
+            add_action('init', array($this, 'disableEmojis'));
         }
     }
 
